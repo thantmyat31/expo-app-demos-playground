@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const ActiviesScreen = () => {
+const MessageScreen = () => {
 	return (
 		<View style={styles.screen}>
-			<Text>Activities Screen</Text>
+			<Text>Message Screen</Text>
 		</View>
 	);
 };
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default ActiviesScreen;
+export default MessageScreen;

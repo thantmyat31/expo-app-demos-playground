@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const ActiviesScreen = () => {
+const LoginScreen = () => {
 	return (
 		<View style={styles.screen}>
-			<Text>Activities Screen</Text>
+			<Text>Login Screen</Text>
 		</View>
 	);
 };
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default ActiviesScreen;
+export default LoginScreen;

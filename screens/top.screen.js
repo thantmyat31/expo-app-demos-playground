@@ -1,41 +1,47 @@
-import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Image, Switch } from 'react-native';
+import CardComponent from './../components/card.component';
 
 const TopScreen = (props) => {
+	const [ lang, setLang ] = useState(false);
 	const { navigation } = props;
 	return (
 		<View style={styles.screen}>
+			<View style={styles.langSetting}>
+				<Text style={styles.lang}>EN</Text>
+				<Switch value={lang} trackColor={{ true: '#ffffff' }} onValueChange={(nextLang) => setLang(nextLang)} />
+				<Text style={styles.lang}>MY</Text>
+			</View>
+			<Image style={styles.image} source={require('../assets/img/logo.png')} />
 			<View style={styles.wrapper}>
-				<TouchableOpacity
-					style={styles.btn}
-					activeOpacity={0.6}
+				<CardComponent
+					btnStyles={styles.aboutGuide}
 					onPress={() => navigation.navigate({ routeName: 'About' })}
-				>
-					<Text style={styles.btnName}>About</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={styles.btn}
-					activeOpacity={0.6}
+					name="About"
+				/>
+				<CardComponent
+					btnStyles={styles.aboutGuide}
 					onPress={() => navigation.navigate({ routeName: 'Guide' })}
-				>
-					<Text style={styles.btnName}>Guide</Text>
-				</TouchableOpacity>
+					name="Guide"
+				/>
 			</View>
 			<View style={styles.wrapper}>
-				<TouchableOpacity
-					style={styles.btn}
-					activeOpacity={0.6}
+				<CardComponent
 					onPress={() => navigation.navigate({ routeName: 'NewsCategories' })}
-				>
-					<Text style={styles.btnName}>News Categories</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={styles.btn}
-					activeOpacity={0.6}
-					onPress={() => navigation.navigate({ routeName: 'Activities' })}
-				>
-					<Text style={styles.btnName}>Activities</Text>
-				</TouchableOpacity>
+					name="News Categories"
+				/>
+				<CardComponent onPress={() => navigation.navigate({ routeName: 'Activities' })} name="Activities" />
+			</View>
+			<View style={styles.wrapper}>
+				<CardComponent onPress={() => navigation.navigate({ routeName: 'Message' })} name="Message" />
+				<CardComponent onPress={() => navigation.navigate({ routeName: 'Others' })} name="Others" />
+			</View>
+			<View style={styles.wrapper}>
+				<CardComponent
+					onPress={() => navigation.navigate({ routeName: 'Login' })}
+					name="Login"
+					loginBtnStyle={styles.loginBtn}
+				/>
 			</View>
 		</View>
 	);
@@ -49,25 +55,39 @@ const styles = StyleSheet.create({
 	screen: {
 		flex: 1,
 		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: '#3d3d3d'
+	},
+	langSetting: {
+		flexDirection: 'row',
+		width: '100%',
+		paddingBottom: 20,
+		paddingHorizontal: 20,
+		justifyContent: 'flex-end',
 		alignItems: 'center'
+	},
+	lang: {
+		color: '#ffffff'
+	},
+	image: {
+		width: 250,
+		height: 50,
+		marginVertical: 20
 	},
 	wrapper: {
 		paddingHorizontal: 10,
 		justifyContent: 'center',
 		alignItems: 'center',
-		flexDirection: 'row',
-		backgroundColor: 'blue'
+		flexDirection: 'row'
 	},
-	btn: {
-		flex: 1,
-		margin: 10,
-		backgroundColor: 'red',
+
+	aboutGuide: {
+		height: 50
+	},
+	loginBtn: {
+		width: 274,
 		height: 50,
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	btnName: {
-		color: '#ffffff'
+		backgroundColor: '#1e6b6d'
 	}
 });
 
