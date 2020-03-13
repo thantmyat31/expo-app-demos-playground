@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
-import { PrimaryThemeComponent } from './../components/theme.component';
+import { PrimaryThemeComponent } from './../../components/theme.component';
 
 import { Ionicons } from '@expo/vector-icons';
 
-import { NEWS_DATA } from './../data/news.data';
+import { NEWS_DATA } from './../../data/news.data';
 
 const NewsDetailsScreen = ({ navigation }) => {
 	const newsId = navigation.getParam('newsId');

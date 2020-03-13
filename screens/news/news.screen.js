@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
-import { PrimaryThemeComponent } from './../components/theme.component';
+import { PrimaryThemeComponent } from './../../components/theme.component';
 
-import { NEWS_CATEGORIES } from './../data/newsCategory.data';
-import { NEWS_DATA } from './../data/news.data';
+import { NEWS_CATEGORIES } from './../../data/newsCategory.data';
+import { NEWS_DATA } from './../../data/news.data';
 
 const NewsList = ({ item, navigation }) => {
 	const title = item.title && item.title.length > 27 ? item.title.substring(0, 27) + ' ...' : item.title;

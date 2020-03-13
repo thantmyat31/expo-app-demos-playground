@@ -7,6 +7,10 @@ export const PrimaryThemeComponent = ({ children, screenStyle }) => {
 	return <View style={{ ...styles.screen, ...styles.primaryScreen, ...screenStyle }}>{children}</View>;
 };
 
+export const DarkThemeComponent = ({ children, screenStyle }) => {
+	return <View style={{ ...styles.screen, ...styles.darkScreen, ...screenStyle }}>{children}</View>;
+};
+
 const styles = StyleSheet.create({
 	screen: {
 		flex: 1,
@@ -15,5 +19,8 @@ const styles = StyleSheet.create({
 	},
 	primaryScreen: {
 		backgroundColor: Color.primaryTheme.screenBackground
+	},
+	darkScreen: {
+		backgroundColor: Color.darkTheme.screenBackground
 	}
 });

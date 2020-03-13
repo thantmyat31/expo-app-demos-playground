@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
-import { NEWS_CATEGORIES } from './../data/newsCategory.data';
-import CardComponent from '../components/card.component';
-import { PrimaryThemeComponent } from './../components/theme.component';
+import { NEWS_CATEGORIES } from './../../data/newsCategory.data';
+
+import CardComponent from './../../components/card.component';
+import { PrimaryThemeComponent } from './../../components/theme.component';
 
 const NewsCategoriesScreen = (props) => {
 	const { navigation } = props;

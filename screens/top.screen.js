@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, Switch } from 'react-native';
 import CardComponent from './../components/card.component';
+import { DarkThemeComponent } from '../components/theme.component';
+import LogoComponent from '../components/logo.component';
 
 const TopScreen = (props) => {
 	const [ lang, setLang ] = useState(false);
 	const { navigation } = props;
 	return (
-		<View style={styles.screen}>
+		<DarkThemeComponent>
 			<View style={styles.langSetting}>
 				<Text style={styles.lang}>EN</Text>
 				<Switch value={lang} trackColor={{ true: '#ffffff' }} onValueChange={(nextLang) => setLang(nextLang)} />
 				<Text style={styles.lang}>MY</Text>
 			</View>
-			<Image style={styles.image} source={require('../assets/img/logo.png')} />
+			<LogoComponent marginVertical={20} />
 			<View style={styles.wrapper}>
 				<CardComponent
 					btnStyles={styles.aboutGuide}
@@ -43,7 +45,7 @@ const TopScreen = (props) => {
 					loginBtnStyle={styles.loginBtn}
 				/>
 			</View>
-		</View>
+		</DarkThemeComponent>
 	);
 };
 
@@ -52,12 +54,6 @@ TopScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-	screen: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#3d3d3d'
-	},
 	langSetting: {
 		flexDirection: 'row',
 		width: '100%',
@@ -68,11 +64,6 @@ const styles = StyleSheet.create({
 	},
 	lang: {
 		color: '#ffffff'
-	},
-	image: {
-		width: 250,
-		height: 50,
-		marginVertical: 20
 	},
 	wrapper: {
 		paddingHorizontal: 10,
