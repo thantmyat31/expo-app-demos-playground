@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, Switch } from 'react-native';
+import { StyleSheet, View, Text, Switch } from 'react-native';
 import CardComponent from './../components/card.component';
 import { DarkThemeComponent } from '../components/theme.component';
 import LogoComponent from '../components/logo.component';

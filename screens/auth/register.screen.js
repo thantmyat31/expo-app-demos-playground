@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableWithoutFeedback, TouchableOpacity, Keyboard } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, Keyboard } from 'react-native';
 import { DarkThemeComponent } from './../../components/theme.component';
 
 import Color from './../../constants/colors.constant';
