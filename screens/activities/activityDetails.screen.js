@@ -7,7 +7,6 @@ import {
 	ScrollView,
 	TouchableOpacity,
 	Modal,
-	Image,
 	TouchableWithoutFeedback
 } from 'react-native';
 
@@ -27,9 +26,9 @@ const ActivityDetails = ({ navigation }) => {
 		setIsModalActive(!isModalActive);
 	};
 
-	const handleButtonPress = () => {};
-
-	const handleButtonStop = () => {};
+	const handleOnVideoToggle = () => {
+		setPaused(!paused);
+	};
 
 	return (
 		<ScrollView>
@@ -56,30 +55,26 @@ const ActivityDetails = ({ navigation }) => {
 						flex: 1,
 						justifyContent: 'center',
 						alignItems: 'center',
-						width: '100%',
-						height: 300
+						width: '100%'
 					}}
 				>
 					<TouchableWithoutFeedback onPress={handleOnModalToggle}>
 						<Text style={styles.closeBtn}>&times;</Text>
 					</TouchableWithoutFeedback>
 
-					<Video
-						source={{ uri: itemData.videoUrl }}
-						posterSource={{
-							uri: 'https://media.tenor.com/images/e549f9798674301c5af2c91581194091/tenor.gif'
-						}}
-						rate={1.0}
-						volume={1.0}
-						isMuted={false}
-						resizeMode="cover"
-						shouldPlay={true}
-						isLooping
-						style={{ width: '100%', height: 300 }}
-						useNativeControls={true}
-						usePoster={true}
-						posterStyle={{ width: '100%', height: '100%' }}
-					/>
+					<TouchableWithoutFeedback onPress={handleOnVideoToggle}>
+						<Video
+							source={{ uri: itemData.videoUrl }}
+							rate={1.0}
+							volume={1.0}
+							isMuted={false}
+							resizeMode="cover"
+							shouldPlay={paused}
+							isLooping={false}
+							style={{ width: '100%', height: 300 }}
+							useNativeControls={true}
+						/>
+					</TouchableWithoutFeedback>
 				</View>
 			</Modal>
 		</ScrollView>

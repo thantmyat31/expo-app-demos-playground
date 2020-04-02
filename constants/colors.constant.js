@@ -8,5 +8,7 @@ export default {
 		screenBackground: '#3d3d3d'
 	},
 	textPrimary: '#7acbcd',
-	textWhite: '#ffffff'
+	textWhite: '#ffffff',
+	primaryColor: '#7acbcd',
+	darkColor: '#3d3d3d'
 };

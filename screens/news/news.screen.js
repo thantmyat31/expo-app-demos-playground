@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
-import { PrimaryThemeComponent } from './../../components/theme.component';
+import { PrimaryThemeComponent, DarkThemeComponent } from './../../components/theme.component';
 
 import { NEWS_CATEGORIES } from './../../data/newsCategory.data';
 import { NEWS_DATA } from './../../data/news.data';
+
+import Color from './../../constants/colors.constant';
 
 const NewsList = ({ item, navigation }) => {
 	const title = item.title && item.title.length > 27 ? item.title.substring(0, 27) + ' ...' : item.title;
@@ -28,14 +30,14 @@ const NewsScreen = ({ navigation }) => {
 	const selectedNewsCategory = NEWS_CATEGORIES.find((news) => news.id === newsId);
 	const selectedNews = NEWS_DATA.filter((news) => news.categoryId === selectedNewsCategory.id);
 	return (
-		<PrimaryThemeComponent>
+		<DarkThemeComponent>
 			<FlatList
 				style={styles.newsList}
 				keyExtractor={(item, index) => item.id}
 				data={selectedNews}
 				renderItem={({ item }) => <NewsList item={item} navigation={navigation} />}
 			/>
-		</PrimaryThemeComponent>
+		</DarkThemeComponent>
 	);
 };
 
@@ -55,13 +57,10 @@ const styles = StyleSheet.create({
 		flex: 1,
 		marginHorizontal: 10,
 		marginVertical: 5,
-		backgroundColor: '#ffffff',
+		backgroundColor: Color.primaryColor,
 		paddingVertical: 10,
 		paddingHorizontal: 20,
-		borderWidth: 1,
-		borderColor: '#ffffff',
-		borderRadius: 10,
-		elevation: 3
+		borderRadius: 10
 	},
 	title: {
 		fontSize: 20,

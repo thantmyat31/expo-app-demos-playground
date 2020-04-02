@@ -3,13 +3,15 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 import { NEWS_CATEGORIES } from './../../data/newsCategory.data';
 
 import CardComponent from './../../components/card.component';
-import { PrimaryThemeComponent } from './../../components/theme.component';
+import { DarkThemeComponent } from './../../components/theme.component';
+
+import Color from './../../constants/colors.constant';
 
 const NewsCategoriesScreen = (props) => {
 	const { navigation } = props;
 	return (
 		<ScrollView>
-			<PrimaryThemeComponent>
+			<DarkThemeComponent>
 				<View style={styles.cardContainer}>
 					{NEWS_CATEGORIES.map((news) => (
 						<CardComponent
@@ -21,7 +23,7 @@ const NewsCategoriesScreen = (props) => {
 						/>
 					))}
 				</View>
-			</PrimaryThemeComponent>
+			</DarkThemeComponent>
 		</ScrollView>
 	);
 };
@@ -31,9 +33,6 @@ NewsCategoriesScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-	screen: {
-		// backgroundColor: '#7acbcd'
-	},
 	cardContainer: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
@@ -43,10 +42,10 @@ const styles = StyleSheet.create({
 	btnStyles: {
 		height: 80,
 		width: '45%',
-		backgroundColor: '#ffffff'
+		backgroundColor: Color.primaryColor
 	},
 	btnNameStyle: {
-		color: '#1e6b6d',
+		color: '#000000',
 		fontWeight: 'bold'
 	}
 });
