@@ -6,7 +6,6 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import TopScreen from './../screens/top.screen';
 import AboutScreen from './../screens/about.screen';
 import GuideScreen from './../screens/guide.screen';
-import MessageScreen from './../screens/message.screen';
 import OthersScreen from './../screens/others.screen';
 
 import LoginScreen from './../screens/auth/login.screen';
@@ -18,6 +17,10 @@ import NewsDetailsScreen from './../screens/news/newsDetails.screen';
 
 import ActivitiesScreen from './../screens/activities/activities.screen';
 import ActivityDetails from './../screens/activities/activityDetails.screen';
+
+import MessageScreen from './../screens/messages/message.screen';
+import YourMessagesScreen from './../screens/messages/yourMessages.screen';
+import SendMessageScreen from './../screens/messages/sendMessage.screen';
 
 import Color from './../constants/colors.constant';
 
@@ -42,18 +45,24 @@ const ActivitiesNavigator = {
 	Activity: ActivityDetails
 };
 
+const MessagesNavigator = {
+	Message: MessageScreen,
+	YourMessages: YourMessagesScreen,
+	SendMessage: SendMessageScreen
+};
+
 const MainNavigator = createStackNavigator(
 	{
 		Top: TopScreen,
 		About: AboutScreen,
 		Guide: GuideScreen,
 
-		Message: MessageScreen,
 		Others: OthersScreen,
 		Login: LoginScreen,
 		Register: RegisterScreen,
 		...ActivitiesNavigator,
-		...NewsNavigator
+		...NewsNavigator,
+		...MessagesNavigator
 	},
 	defaultStackNavitionOptions
 );
