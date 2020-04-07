@@ -23,6 +23,7 @@ import YourMessagesScreen from './../screens/messages/yourMessages.screen';
 import SendMessageScreen from './../screens/messages/sendMessage.screen';
 
 import Color from './../constants/colors.constant';
+import MessageDetailsScreen from './../screens/messages/messageDetails.screen';
 
 const defaultStackNavitionOptions = {
 	mode: 'card',
@@ -48,7 +49,8 @@ const ActivitiesNavigator = {
 const MessagesNavigator = {
 	Message: MessageScreen,
 	YourMessages: YourMessagesScreen,
-	SendMessage: SendMessageScreen
+	SendMessage: SendMessageScreen,
+	MessageDetails: MessageDetailsScreen
 };
 
 const MainNavigator = createStackNavigator(

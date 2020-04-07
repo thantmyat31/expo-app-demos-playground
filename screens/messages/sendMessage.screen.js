@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import Color from './../../constants/colors.constant';
@@ -12,7 +12,11 @@ const SendMessageScreen = () => {
 		setDateTime(`${date} ${time}`);
 	};
 
-	setInterval(setDateAndTime, 1000);
+	useEffect(() => {
+		setDateAndTime();
+	}, []);
+
+	// setInterval(setDateAndTime, 1000);
 
 	return (
 		<View style={styles.screen}>
