@@ -10,5 +10,6 @@ export default {
 	textPrimary: '#7acbcd',
 	textWhite: '#ffffff',
 	primaryColor: '#7acbcd',
-	darkColor: '#3d3d3d'
+	darkColor: '#3d3d3d',
+	redColor: '#FF5252'
 };

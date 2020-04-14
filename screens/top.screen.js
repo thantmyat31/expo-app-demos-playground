@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Switch } from 'react-native';
 import CardComponent from './../components/card.component';
 import { DarkThemeComponent } from '../components/theme.component';
 import LogoComponent from '../components/logo.component';
+import { connect } from 'react-redux';
 
 const TopScreen = (props) => {
 	const [ lang, setLang ] = useState(false);

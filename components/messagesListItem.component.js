@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
-const MessagesListItem = ({ onPress }) => {
+const MessagesListItem = ({ onPress, data }) => {
 	return (
 		<TouchableOpacity activeOpacity={0.6} onPress={onPress}>
 			<View style={styles.messageContainer}>
-				<Text style={styles.title}>Your message screen</Text>
-				<Text style={styles.message}>Long text message is here</Text>
+				<Text style={styles.title}>{data.title}</Text>
+				<Text style={styles.message}>{data.message}</Text>
 			</View>
 		</TouchableOpacity>
 	);
