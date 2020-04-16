@@ -6,6 +6,7 @@ import Color from './../../constants/colors.constant';
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { addMessageTypeAction } from './../../redux/message/message.action';
+import { FontAwesome } from '@expo/vector-icons';
 
 const SendMessageScreen = ({ messageTypes, addMessage, navigation }) => {
 	const [ dateTime, setDateTime ] = useState();
@@ -14,6 +15,7 @@ const SendMessageScreen = ({ messageTypes, addMessage, navigation }) => {
 	const [ title, setTitle ] = useState('');
 	const [ message, setMessage ] = useState('');
 	const [ selectedImage, setSelectedImage ] = useState();
+	let messageTypesList = [];
 
 	const setDateAndTime = () => {
 		const newDate = new Date();
@@ -47,12 +49,20 @@ const SendMessageScreen = ({ messageTypes, addMessage, navigation }) => {
 	const handleOnSubmit = () => {
 		const getNewDate = new Date();
 		const id = getNewDate.toString();
-		const messageTypesList = [];
+
 		if (isInformation) {
-			messageTypes.push(1);
-		} else if (isSuggestion) {
-			messageTypes.push(2);
+			messageTypesList = [ ...messageTypesList, 1 ];
 		}
+		if (isSuggestion) {
+			messageTypesList = [ ...messageTypesList, 2 ];
+		}
+		if (!isInformation && !isSuggestion) {
+			Alert.alert('Sending fail!', 'Please, choose correctly the type of your message.', [
+				{ text: 'OK', style: 'default' }
+			]);
+			return;
+		}
+
 		const messageDetails = {
 			id,
 			messageTypes: messageTypesList,
@@ -68,7 +78,7 @@ const SendMessageScreen = ({ messageTypes, addMessage, navigation }) => {
 		return (
 			<View style={styles.option}>
 				<CheckBox value={value} onValueChange={onChange} style={styles.checkbox} />
-				<Text style={styles.optionText}>{label.toUpperCase()}</Text>
+				<Text style={styles.optionText}>{label}</Text>
 			</View>
 		);
 	};
@@ -81,6 +91,9 @@ const SendMessageScreen = ({ messageTypes, addMessage, navigation }) => {
 					<Text>{dateTime}</Text>
 				</View>
 				<View style={styles.options}>
+					<Text>
+						Message Type <FontAwesome name="asterisk" color="#ff0000" size={10} />
+					</Text>
 					{messageTypes.map((messageType) => (
 						<MsgTypeCheckBox
 							key={messageType.id}
@@ -91,27 +104,31 @@ const SendMessageScreen = ({ messageTypes, addMessage, navigation }) => {
 					))}
 				</View>
 				<View style={styles.details}>
-					<Text style={styles.label}>Enter title</Text>
+					<Text style={styles.label}>
+						Title <FontAwesome name="asterisk" color="#ff0000" size={10} />
+					</Text>
 					<TextInput
 						value={title}
 						style={styles.input}
 						multiline={true}
-						placeholder="title"
+						placeholder="Enter title"
 						onChangeText={(text) => setTitle(text)}
 					/>
 				</View>
 				<View style={styles.details}>
-					<Text style={styles.label}>Enter a message</Text>
+					<Text style={styles.label}>
+						Message <FontAwesome name="asterisk" color="#ff0000" size={10} />
+					</Text>
 					<TextInput
 						value={message}
 						style={styles.input}
 						multiline={true}
-						placeholder="message"
+						placeholder="Enter a message"
 						onChangeText={(text) => setMessage(text)}
 					/>
 				</View>
 				<View style={{ ...styles.details, ...styles.imageDetails }}>
-					<Text>Pick an image</Text>
+					<Text>Pick an image (optional)</Text>
 					{selectedImage && <Image style={styles.image} source={{ uri: selectedImage }} />}
 					<View style={styles.btn}>
 						{!selectedImage ? (

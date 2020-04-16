@@ -1,12 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
-import { PrimaryThemeComponent, DarkThemeComponent } from './../../components/theme.component';
+import { PrimaryThemeComponent } from './../../components/theme.component';
 
 import { NEWS_CATEGORIES } from './../../data/newsCategory.data';
 import { NEWS_DATA } from './../../data/news.data';
-
-import Color from './../../constants/colors.constant';
 
 const NewsList = ({ item, navigation }) => {
 	const title = item.title && item.title.length > 27 ? item.title.substring(0, 27) + ' ...' : item.title;
@@ -18,8 +16,11 @@ const NewsList = ({ item, navigation }) => {
 				navigation.navigate({ routeName: 'NewsDetails', params: { newsId: item.id, newsTitle: title } })}
 		>
 			<View style={styles.newsListItem}>
-				<Text style={styles.title}>{title}</Text>
-				<Text>{content}</Text>
+				<Image source={{ uri: item.imageUrl }} style={styles.image} />
+				<View style={styles.content}>
+					<Text style={styles.title}>{title}</Text>
+					<Text>{content}</Text>
+				</View>
 			</View>
 		</TouchableOpacity>
 	);
@@ -30,14 +31,14 @@ const NewsScreen = ({ navigation }) => {
 	const selectedNewsCategory = NEWS_CATEGORIES.find((news) => news.id === newsId);
 	const selectedNews = NEWS_DATA.filter((news) => news.categoryId === selectedNewsCategory.id);
 	return (
-		<DarkThemeComponent>
+		<PrimaryThemeComponent>
 			<FlatList
 				style={styles.newsList}
 				keyExtractor={(item, index) => item.id}
 				data={selectedNews}
 				renderItem={({ item }) => <NewsList item={item} navigation={navigation} />}
 			/>
-		</DarkThemeComponent>
+		</PrimaryThemeComponent>
 	);
 };
 
@@ -55,12 +56,21 @@ const styles = StyleSheet.create({
 	},
 	newsListItem: {
 		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
 		marginHorizontal: 10,
 		marginVertical: 5,
-		backgroundColor: Color.primaryColor,
-		paddingVertical: 10,
-		paddingHorizontal: 20,
-		borderRadius: 10
+		backgroundColor: '#ffffff',
+		padding: 10
+	},
+	image: {
+		width: 70,
+		height: 70,
+		borderRadius: 35
+	},
+	content: {
+		width: '75%'
 	},
 	title: {
 		fontSize: 20,

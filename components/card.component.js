@@ -8,6 +8,7 @@ const CardComponent = (props) => {
 			activeOpacity={0.6}
 			onPress={props.onPress}
 		>
+			{props.children && props.children}
 			<Text style={{ ...styles.btnName, ...props.btnNameStyle }}>{props.name}</Text>
 		</TouchableOpacity>
 	);

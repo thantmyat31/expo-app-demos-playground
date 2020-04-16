@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Switch } from 'react-native';
+import { StyleSheet, View, Text, Switch, Alert } from 'react-native';
 import CardComponent from './../components/card.component';
 import { DarkThemeComponent } from '../components/theme.component';
 import LogoComponent from '../components/logo.component';
@@ -7,7 +7,19 @@ import { connect } from 'react-redux';
 
 const TopScreen = (props) => {
 	const [ lang, setLang ] = useState(false);
-	const { navigation } = props;
+	const { navigation, currentUser } = props;
+
+	const handleOnCheckCurrentUser = () => {
+		if (!currentUser) {
+			Alert.alert('Not Authorized!', 'You are not logged in. Please, press "Yes" to go login page.', [
+				{ text: 'Yes', style: 'destructive', onPress: () => navigation.navigate({ routeName: 'Login' }) },
+				{ text: 'No', style: 'cancel' }
+			]);
+			return;
+		}
+		navigation.navigate({ routeName: 'Message' });
+	};
+
 	return (
 		<DarkThemeComponent>
 			<View style={styles.langSetting}>
@@ -36,7 +48,7 @@ const TopScreen = (props) => {
 				<CardComponent onPress={() => navigation.navigate({ routeName: 'Activities' })} name="Activities" />
 			</View>
 			<View style={styles.wrapper}>
-				<CardComponent onPress={() => navigation.navigate({ routeName: 'Message' })} name="Message" />
+				<CardComponent onPress={handleOnCheckCurrentUser} name="Message" />
 				<CardComponent onPress={() => navigation.navigate({ routeName: 'Others' })} name="Others" />
 			</View>
 			<View style={styles.wrapper}>
@@ -83,4 +95,8 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default TopScreen;
+const mapStateToProps = (state) => ({
+	currentUser: state.user.currentUser
+});
+
+export default connect(mapStateToProps)(TopScreen);

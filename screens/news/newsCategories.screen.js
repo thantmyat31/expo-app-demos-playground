@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, Image, ScrollView, StyleSheet } from 'react-native';
 import { NEWS_CATEGORIES } from './../../data/newsCategory.data';
 
 import CardComponent from './../../components/card.component';
@@ -20,7 +20,11 @@ const NewsCategoriesScreen = (props) => {
 							btnStyles={styles.btnStyles}
 							btnNameStyle={styles.btnNameStyle}
 							onPress={() => navigation.navigate({ routeName: 'News', params: { newsId: news.id } })}
-						/>
+						>
+							{news.imageUrl && (
+								<Image source={{ uri: news.imageUrl }} style={{ width: '100%', height: '100%' }} />
+							)}
+						</CardComponent>
 					))}
 				</View>
 			</DarkThemeComponent>
@@ -42,11 +46,18 @@ const styles = StyleSheet.create({
 	btnStyles: {
 		height: 80,
 		width: '45%',
-		backgroundColor: Color.primaryColor
+		backgroundColor: '#ffffff',
+		borderRadius: 0,
+		padding: 0
 	},
 	btnNameStyle: {
-		color: '#000000',
-		fontWeight: 'bold'
+		color: '#ffffff',
+		backgroundColor: 'rgba(0,0,0,0.6)',
+		fontWeight: 'bold',
+		paddingHorizontal: 10,
+		position: 'absolute',
+		bottom: 0,
+		right: 0
 	}
 });
 

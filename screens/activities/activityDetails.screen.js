@@ -1,44 +1,42 @@
 import React, { useState } from 'react';
-import {
-	View,
-	Text,
-	ImageBackground,
-	StyleSheet,
-	ScrollView,
-	TouchableOpacity,
-	Modal,
-	TouchableWithoutFeedback
-} from 'react-native';
-
-import { Video } from 'expo-av';
-
+import { View, Text, ImageBackground, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { ACTIVITIES_DATA } from './../../data/activities.data';
 
+import { Video } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 
 const ActivityDetails = ({ navigation }) => {
 	const activityId = navigation.getParam('activityId');
 	const itemData = ACTIVITIES_DATA.find((item) => item.id === activityId);
-	const [ isModalActive, setIsModalActive ] = useState(false);
-	const [ paused, setPaused ] = useState(false);
+	const [ isPlayed, setIsPlayed ] = useState(false);
 
 	const handleOnModalToggle = () => {
-		setIsModalActive(!isModalActive);
-	};
-
-	const handleOnVideoToggle = () => {
-		setPaused(!paused);
+		setIsPlayed(true);
 	};
 
 	return (
 		<ScrollView>
 			<View style={styles.screen}>
 				<TouchableOpacity style={styles.imageContainer} activeOpacity={0.6} onPress={handleOnModalToggle}>
-					<ImageBackground style={styles.image} source={{ uri: itemData.imageUrl }}>
-						<View style={styles.iconContainer}>
-							<Ionicons style={styles.icon} name="ios-play" size={40} color="rgba(0,0,0,0.6)" />
-						</View>
-					</ImageBackground>
+					{!isPlayed ? (
+						<ImageBackground style={styles.image} source={{ uri: itemData.imageUrl }}>
+							<View style={styles.iconContainer}>
+								<Ionicons style={styles.icon} name="ios-play" size={40} color="rgba(0,0,0,0.6)" />
+							</View>
+						</ImageBackground>
+					) : (
+						<Video
+							source={{ uri: itemData.videoUrl }}
+							rate={1.0}
+							volume={1.0}
+							isMuted={false}
+							resizeMode="cover"
+							shouldPlay={true}
+							isLooping={false}
+							style={styles.video}
+							useNativeControls={true}
+						/>
+					)}
 				</TouchableOpacity>
 				<View style={styles.details}>
 					<Text style={styles.title}>{itemData.title}</Text>
@@ -48,35 +46,6 @@ const ActivityDetails = ({ navigation }) => {
 					<Text style={styles.description}>{itemData.description}</Text>
 				</View>
 			</View>
-			<Modal animationType="slide" transparent={true} visible={isModalActive}>
-				<View
-					style={{
-						backgroundColor: 'rgba(0,0,0,0.7)',
-						flex: 1,
-						justifyContent: 'center',
-						alignItems: 'center',
-						width: '100%'
-					}}
-				>
-					<TouchableWithoutFeedback onPress={handleOnModalToggle}>
-						<Text style={styles.closeBtn}>&times;</Text>
-					</TouchableWithoutFeedback>
-
-					<TouchableWithoutFeedback onPress={handleOnVideoToggle}>
-						<Video
-							source={{ uri: itemData.videoUrl }}
-							rate={1.0}
-							volume={1.0}
-							isMuted={false}
-							resizeMode="cover"
-							shouldPlay={paused}
-							isLooping={false}
-							style={{ width: '100%', height: 300 }}
-							useNativeControls={true}
-						/>
-					</TouchableWithoutFeedback>
-				</View>
-			</Modal>
 		</ScrollView>
 	);
 };
@@ -130,16 +99,9 @@ const styles = StyleSheet.create({
 		lineHeight: 20,
 		letterSpacing: 1
 	},
-	closeBtn: {
-		color: '#ffffff',
-		fontSize: 50,
-		position: 'absolute',
-		top: 10,
-		right: 10
-	},
 	video: {
 		width: '100%',
-		height: 300
+		height: 200
 	}
 });
 
