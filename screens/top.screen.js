@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Switch, Alert } from 'react-native';
+import { StyleSheet, View, Text, Switch, Alert, ToastAndroid } from 'react-native';
+
+import { connect } from 'react-redux';
+import { userLogoutAction } from '../redux/user/user.action';
+
 import CardComponent from './../components/card.component';
 import { DarkThemeComponent } from '../components/theme.component';
 import LogoComponent from '../components/logo.component';
-import { connect } from 'react-redux';
+
+import Color from './../constants/colors.constant';
 
 const TopScreen = (props) => {
 	const [ lang, setLang ] = useState(false);
-	const { navigation, currentUser } = props;
+	const { navigation, currentUser, userLogoutAction } = props;
 
 	const handleOnCheckCurrentUser = () => {
 		if (!currentUser) {
@@ -18,6 +23,15 @@ const TopScreen = (props) => {
 			return;
 		}
 		navigation.navigate({ routeName: 'Message' });
+	};
+
+	const showToast = (status) => {
+		ToastAndroid.showWithGravity(`You are logged ${status}!`, ToastAndroid.LONG, ToastAndroid.CENTER);
+	};
+
+	const handleOnLogout = () => {
+		userLogoutAction();
+		showToast('out');
 	};
 
 	return (
@@ -52,11 +66,26 @@ const TopScreen = (props) => {
 				<CardComponent onPress={() => navigation.navigate({ routeName: 'Others' })} name="Others" />
 			</View>
 			<View style={styles.wrapper}>
-				<CardComponent
-					onPress={() => navigation.navigate({ routeName: 'Login' })}
-					name="Login"
-					loginBtnStyle={styles.loginBtn}
-				/>
+				{!currentUser ? (
+					<CardComponent
+						onPress={() => navigation.navigate({ routeName: 'Login' })}
+						name="Login"
+						loginBtnStyle={styles.loginBtn}
+					/>
+				) : (
+					<View style={styles.authBtnWrapper}>
+						<CardComponent
+							onPress={() => navigation.navigate('Profile')}
+							name="Profile"
+							loginBtnStyle={styles.logoutProfileBtn}
+						/>
+						<CardComponent
+							onPress={handleOnLogout}
+							name="Logout"
+							loginBtnStyle={{ ...styles.logoutProfileBtn, ...styles.logoutBtnColor }}
+						/>
+					</View>
+				)}
 			</View>
 		</DarkThemeComponent>
 	);
@@ -84,14 +113,25 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		flexDirection: 'row'
 	},
-
 	aboutGuide: {
 		height: 50
 	},
 	loginBtn: {
 		width: 274,
 		height: 50,
-		backgroundColor: '#1e6b6d'
+		backgroundColor: Color.loginBtnColor
+	},
+	authBtnWrapper: {
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	},
+	logoutProfileBtn: {
+		width: 130,
+		height: 50,
+		backgroundColor: Color.profileBtnColor
+	},
+	logoutBtnColor: {
+		backgroundColor: Color.profileBtnColor
 	}
 });
 
@@ -99,4 +139,8 @@ const mapStateToProps = (state) => ({
 	currentUser: state.user.currentUser
 });
 
-export default connect(mapStateToProps)(TopScreen);
+const mapDispatchToProps = (dispatch) => ({
+	userLogoutAction: () => dispatch(userLogoutAction())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopScreen);

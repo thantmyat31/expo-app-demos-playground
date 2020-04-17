@@ -3,19 +3,25 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 
 import { Ionicons } from '@expo/vector-icons';
 
-export const InputComponent = ({ icon, placeholder, secureTextEntry }) => {
+export const InputComponent = ({ icon, placeholder, secureTextEntry, value, onChange }) => {
 	return (
 		<View style={styles.inputContainer}>
 			<Ionicons name={icon} size={25} style={styles.icon} color="#3d3d3d" />
-			<TextInput secureTextEntry={secureTextEntry} style={styles.input} placeholder={placeholder} />
+			<TextInput
+				value={value}
+				onChangeText={onChange}
+				secureTextEntry={secureTextEntry}
+				style={styles.input}
+				placeholder={placeholder}
+			/>
 		</View>
 	);
 };
 
-export const LoginRegisterBtnComponent = ({ btnName }) => {
+export const LoginRegisterBtnComponent = ({ btnName, onPress }) => {
 	return (
 		<View style={styles.inputContainer}>
-			<TouchableOpacity activeOpacity={0.6} style={styles.loginRegisterBtn}>
+			<TouchableOpacity activeOpacity={0.6} style={styles.loginRegisterBtn} onPress={onPress}>
 				<Text style={styles.btn}>{btnName}</Text>
 			</TouchableOpacity>
 		</View>
@@ -35,7 +41,6 @@ const styles = StyleSheet.create({
 	input: {
 		width: '100%',
 		height: 45,
-		lineHeight: 45,
 		paddingVertical: 10,
 		paddingLeft: 40,
 		paddingRight: 10,

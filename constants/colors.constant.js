@@ -11,5 +11,7 @@ export default {
 	textWhite: '#ffffff',
 	primaryColor: '#7acbcd',
 	darkColor: '#3d3d3d',
-	redColor: '#FF5252'
+	redColor: '#FF5252',
+	loginBtnColor: '#1e6b6d',
+	profileBtnColor: '#6D6E6A'
 };

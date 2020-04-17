@@ -2,11 +2,10 @@ import React from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import MessagesListItem from '../../components/messagesListItem.component';
 import { connect } from 'react-redux';
-import {} from 'react-native-gesture-handler';
 
 const YourMessagesScreen = ({ navigation, messages }) => {
-	const handleOnNavigate = () => {
-		navigation.navigate('MessageDetails');
+	const handleOnNavigate = (messageId) => {
+		navigation.navigate('MessageDetails', { messageId: messageId });
 	};
 	return (
 		<View style={styles.screen}>
@@ -14,7 +13,9 @@ const YourMessagesScreen = ({ navigation, messages }) => {
 				<FlatList
 					keyExtractor={(item, index) => item.id}
 					data={messages}
-					renderItem={(message) => <MessagesListItem onPress={handleOnNavigate} data={message.item} />}
+					renderItem={(message) => (
+						<MessagesListItem onPress={() => handleOnNavigate(message.item.id)} data={message.item} />
+					)}
 				/>
 			)}
 		</View>

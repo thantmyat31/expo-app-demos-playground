@@ -6,9 +6,9 @@ import Color from './../../constants/colors.constant';
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { addMessageTypeAction } from './../../redux/message/message.action';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
-const SendMessageScreen = ({ messageTypes, addMessage, navigation }) => {
+const SendMessageScreen = ({ messageTypes, addMessage, navigation, currentUser }) => {
 	const [ dateTime, setDateTime ] = useState();
 	const [ isInformation, setIsInformation ] = useState(false);
 	const [ isSuggestion, setIsSuggestion ] = useState(false);
@@ -39,7 +39,6 @@ const SendMessageScreen = ({ messageTypes, addMessage, navigation }) => {
 
 		let pickerResult = await ImagePicker.launchImageLibraryAsync();
 		setSelectedImage(pickerResult.uri);
-		console.log(pickerResult.uri);
 	};
 
 	const handleOnRemoveImage = () => {
@@ -48,7 +47,9 @@ const SendMessageScreen = ({ messageTypes, addMessage, navigation }) => {
 
 	const handleOnSubmit = () => {
 		const getNewDate = new Date();
+		const userId = currentUser.id;
 		const id = getNewDate.toString();
+		const date = getNewDate.toLocaleDateString();
 
 		if (isInformation) {
 			messageTypesList = [ ...messageTypesList, 1 ];
@@ -57,7 +58,14 @@ const SendMessageScreen = ({ messageTypes, addMessage, navigation }) => {
 			messageTypesList = [ ...messageTypesList, 2 ];
 		}
 		if (!isInformation && !isSuggestion) {
-			Alert.alert('Sending fail!', 'Please, choose correctly the type of your message.', [
+			Alert.alert('Sending failed!', 'Please, choose correctly the type of your message.', [
+				{ text: 'OK', style: 'default' }
+			]);
+			return;
+		}
+
+		if (title === '' || message === '') {
+			Alert.alert('Request Failed!', 'Please, insert all required fields (*).', [
 				{ text: 'OK', style: 'default' }
 			]);
 			return;
@@ -65,10 +73,12 @@ const SendMessageScreen = ({ messageTypes, addMessage, navigation }) => {
 
 		const messageDetails = {
 			id,
+			userId: userId,
 			messageTypes: messageTypesList,
 			title: title,
 			message: message,
-			imageUrl: selectedImage
+			imageUrl: selectedImage,
+			date
 		};
 		addMessage(messageDetails);
 		navigation.navigate('YourMessages');
@@ -208,7 +218,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-	messageTypes: state.message.messageTypes
+	messageTypes: state.message.messageTypes,
+	currentUser: state.user.currentUser
 });
 
 const mapDispatchToProps = (dispatch) => ({
