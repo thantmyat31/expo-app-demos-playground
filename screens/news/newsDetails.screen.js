@@ -1,14 +1,31 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { PrimaryThemeComponent } from './../../components/theme.component';
 
 import { Ionicons } from '@expo/vector-icons';
 
 import { NEWS_DATA } from './../../data/news.data';
+import { connect } from 'react-redux';
+import { addFavoritePostAction } from '../../redux/user/user.action';
 
-const NewsDetailsScreen = ({ navigation }) => {
+const NewsDetailsScreen = ({ navigation, currentUser, addToFavoritePost }) => {
 	const newsId = navigation.getParam('newsId');
 	const selectedNews = NEWS_DATA.find((news) => news.id === newsId);
+
+	const [ isFavoritePost, setIsFavoritePost ] = useState(false);
+
+	useEffect(() => {
+		if (currentUser) {
+			if (currentUser.favoritePosts && currentUser.favoritePosts.indexOf(selectedNews) !== -1) {
+				setIsFavoritePost(true);
+			}
+		}
+	}, []);
+
+	const handleOnAddFavoritePost = (post) => {
+		addToFavoritePost(post);
+		setIsFavoritePost(!isFavoritePost);
+	};
 
 	return (
 		<PrimaryThemeComponent screenStyle={styles.screenStyle}>
@@ -19,11 +36,20 @@ const NewsDetailsScreen = ({ navigation }) => {
 
 				<View style={styles.newsDetailsContainer}>
 					<Text style={styles.title}>{selectedNews.title}</Text>
-					<View style={styles.dateContainer}>
-						<Text>
+					<View style={styles.details}>
+						<View style={styles.dateContainer}>
 							<Ionicons name="ios-calendar" size={25} />
-						</Text>
-						<Text style={styles.date}> {selectedNews.date}</Text>
+							<Text style={styles.date}> {selectedNews.date}</Text>
+						</View>
+						{currentUser && (
+							<TouchableOpacity
+								style={styles.favorites}
+								activeOpacity={0.6}
+								onPress={() => handleOnAddFavoritePost(selectedNews)}
+							>
+								<Ionicons name="md-heart" size={25} color={isFavoritePost ? '#f00' : '#ccc'} />
+							</TouchableOpacity>
+						)}
 					</View>
 					<Text style={styles.content}>{selectedNews.content}</Text>
 				</View>
@@ -63,8 +89,13 @@ const styles = StyleSheet.create({
 		letterSpacing: 1,
 		marginBottom: 20
 	},
-	dateContainer: {
+	details: {
 		marginBottom: 20,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between'
+	},
+	dateContainer: {
 		flexDirection: 'row',
 		alignItems: 'center'
 	},
@@ -72,10 +103,19 @@ const styles = StyleSheet.create({
 		fontSize: 12,
 		letterSpacing: 1
 	},
+	favorites: { paddingVertical: 10, paddingHorizontal: 20 },
 	content: {
 		lineHeight: 25,
 		letterSpacing: 1
 	}
 });
 
-export default NewsDetailsScreen;
+const mapStateToProps = (state) => ({
+	currentUser: state.user.currentUser
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	addToFavoritePost: (post) => dispatch(addFavoritePostAction(post))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsDetailsScreen);

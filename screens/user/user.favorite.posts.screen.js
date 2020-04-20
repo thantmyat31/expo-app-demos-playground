@@ -1,10 +1,26 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { connect } from 'react-redux';
+import MessagesListItem from '../../components/messagesListItem.component';
 
-const UserFavoritePostScreen = () => {
+const UserFavoritePostScreen = ({ favoritePosts, navigation }) => {
+	const handleOnNavigate = (newsId, title) => {
+		navigation.navigate({ routeName: 'NewsDetails', params: { newsId: newsId, newsTitle: title } });
+	};
+
 	return (
 		<View style={styles.screen}>
-			<Text>Favorite Post</Text>
+			<FlatList
+				keyExtractor={(item, index) => item.id}
+				data={favoritePosts}
+				renderItem={(news) => (
+					<MessagesListItem
+						favoritePost={true}
+						data={news.item}
+						onPress={() => handleOnNavigate(news.item.id, news.item.title)}
+					/>
+				)}
+			/>
 		</View>
 	);
 };
@@ -19,4 +35,8 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default UserFavoritePostScreen;
+const mapStateToProps = (state) => ({
+	favoritePosts: state.user.currentUser.favoritePosts
+});
+
+export default connect(mapStateToProps)(UserFavoritePostScreen);

@@ -19,7 +19,6 @@ import NewsDetailsScreen from './../screens/news/newsDetails.screen';
 import ActivitiesScreen from './../screens/activities/activities.screen';
 import ActivityDetails from './../screens/activities/activityDetails.screen';
 
-import MessageScreen from './../screens/messages/message.screen';
 import YourMessagesScreen from './../screens/messages/yourMessages.screen';
 import SendMessageScreen from './../screens/messages/sendMessage.screen';
 import MessageDetailsScreen from './../screens/messages/messageDetails.screen';
@@ -51,13 +50,6 @@ const ActivitiesNavigator = {
 	Activity: ActivityDetails
 };
 
-const MessagesNavigator = {
-	Message: MessageScreen,
-	YourMessages: YourMessagesScreen,
-	SendMessage: SendMessageScreen,
-	MessageDetails: MessageDetailsScreen
-};
-
 const ProfileTabsNavigator = createBottomTabNavigator(
 	{
 		Profile: {
@@ -87,6 +79,35 @@ const ProfileTabsNavigator = createBottomTabNavigator(
 	}
 );
 
+const MessageTabsNavigator = createBottomTabNavigator(
+	{
+		YourMessages: {
+			screen: YourMessagesScreen,
+			navigationOptions: {
+				tabBarLabel: 'Your Messages',
+				tabBarIcon: (tabInfo) => {
+					return <Ionicons name="md-mail" size={25} color={tabInfo.tintColor} />;
+				}
+			}
+		},
+		SendMessage: {
+			screen: SendMessageScreen,
+			navigationOptions: {
+				tabBarLabel: 'Send Message',
+				tabBarIcon: (tabInfo) => {
+					return <Ionicons name="md-send" size={25} color={tabInfo.tintColor} />;
+				}
+			}
+		}
+	},
+	{
+		tabBarOptions: {
+			activeTintColor: '#ffffff',
+			activeBackgroundColor: Color.primaryTheme.headerBackground
+		}
+	}
+);
+
 const MainNavigator = createStackNavigator(
 	{
 		Top: TopScreen,
@@ -99,7 +120,8 @@ const MainNavigator = createStackNavigator(
 		Others: OthersScreen,
 		...ActivitiesNavigator,
 		...NewsNavigator,
-		...MessagesNavigator,
+		MessageDetails: MessageDetailsScreen,
+		Message: MessageTabsNavigator,
 		Profile: ProfileTabsNavigator
 	},
 	defaultStackNavitionOptions

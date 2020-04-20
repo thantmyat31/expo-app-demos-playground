@@ -161,7 +161,7 @@ const SendMessageScreen = ({ messageTypes, addMessage, navigation, currentUser }
 };
 
 SendMessageScreen.navigationOptions = {
-	headerTitle: 'Your Messages'
+	headerTitle: 'Send Message'
 };
 
 const styles = StyleSheet.create({

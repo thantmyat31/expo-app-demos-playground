@@ -13,3 +13,8 @@ export const userProfileUpdateAction = (data) => ({
 	type: userTypes.USER_PROFILE_UPDATE,
 	payload: data
 });
+
+export const addFavoritePostAction = (post) => ({
+	type: userTypes.ADD_FAVORITE_POST,
+	payload: post
+});

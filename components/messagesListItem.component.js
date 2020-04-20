@@ -1,8 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
-const MessagesListItem = ({ onPress, data }) => {
-	const shortMessage = data.message.length < 50 ? data.message : data.message.substring(0, 50) + '...';
+const MessagesListItem = ({ onPress, data, favoritePost }) => {
+	let shortMessage;
+	if (!favoritePost) {
+		shortMessage = data.message.length < 50 ? data.message : data.message.substring(0, 50) + '...';
+	} else {
+		shortMessage = data.content.length < 50 ? data.content : data.content.substring(0, 50) + '...';
+	}
+
 	return (
 		<TouchableOpacity activeOpacity={0.6} onPress={onPress}>
 			<View style={styles.messageContainer}>

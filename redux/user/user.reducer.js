@@ -28,6 +28,28 @@ const userReducer = (state = INITIAL_STATE, action) => {
 				users: state.users.map((user) => (user.id === state.currentUser.id ? updatedUser : user))
 			};
 
+		case userTypes.ADD_FAVORITE_POST:
+			if (!state.currentUser) {
+				return state;
+			}
+			let newFavoritePosts = [];
+			if (state.currentUser.favoritePosts) {
+				if (state.currentUser.favoritePosts.indexOf(action.payload) !== -1) {
+					newFavoritePosts = state.currentUser.favoritePosts.filter((post) => post !== action.payload);
+				} else {
+					newFavoritePosts = [ ...state.currentUser.favoritePosts, action.payload ];
+				}
+			} else {
+				newFavoritePosts = [ action.payload ];
+			}
+			return {
+				...state,
+				currentUser: {
+					...state.currentUser,
+					favoritePosts: newFavoritePosts
+				}
+			};
+
 		default:
 			return state;
 	}
