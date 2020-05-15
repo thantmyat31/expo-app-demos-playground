@@ -9,10 +9,22 @@ import { DarkThemeComponent } from '../components/theme.component';
 import LogoComponent from '../components/logo.component';
 
 import Color from './../constants/colors.constant';
+import USERS_ROLES from './../data/usersRoles.data';
 
 const TopScreen = (props) => {
 	const [ lang, setLang ] = useState(false);
+	const [ userRole, setUserRole ] = useState();
 	const { navigation, currentUser, userLogoutAction } = props;
+
+	useEffect(
+		() => {
+			if (currentUser) {
+				const roleObj = USERS_ROLES.find((r) => r.id === currentUser.roleId);
+				setUserRole(roleObj.role);
+			}
+		},
+		[ currentUser ]
+	);
 
 	const handleOnCheckCurrentUser = () => {
 		if (!currentUser) {
@@ -74,11 +86,19 @@ const TopScreen = (props) => {
 					/>
 				) : (
 					<View style={styles.authBtnWrapper}>
-						<CardComponent
-							onPress={() => navigation.navigate('Profile')}
-							name="Profile"
-							loginBtnStyle={styles.logoutProfileBtn}
-						/>
+						{userRole === 'admin' ? (
+							<CardComponent
+								onPress={() => navigation.navigate('Dashboard')}
+								name="Dashboard"
+								loginBtnStyle={styles.logoutProfileBtn}
+							/>
+						) : (
+							<CardComponent
+								onPress={() => navigation.navigate('Profile')}
+								name="Profile"
+								loginBtnStyle={styles.logoutProfileBtn}
+							/>
+						)}
 						<CardComponent
 							onPress={handleOnLogout}
 							name="Logout"

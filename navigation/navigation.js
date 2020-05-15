@@ -3,6 +3,7 @@ import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 
 import TopScreen from './../screens/top.screen';
 import AboutScreen from './../screens/about.screen';
@@ -28,6 +29,8 @@ import UserProfileScreen from './../screens/user/user.profile.screen';
 import Color from './../constants/colors.constant';
 import UserFavoritePostScreen from './../screens/user/user.favorite.posts.screen';
 import { Ionicons } from '@expo/vector-icons';
+import DashboardScreen from './../screens/admin/dashboard.screen';
+import UsersListScreen from './../screens/admin/usersList.screen';
 
 const defaultStackNavitionOptions = {
 	mode: 'card',
@@ -108,6 +111,43 @@ const MessageTabsNavigator = createBottomTabNavigator(
 	}
 );
 
+const DashStack = createStackNavigator(
+	{
+		Dashboard: DashboardScreen
+	},
+	defaultStackNavitionOptions
+);
+
+const UsersListStack = createStackNavigator(
+	{
+		UsersList: UsersListScreen
+	},
+	defaultStackNavitionOptions
+);
+
+const DashboardDrawerNavigator = createDrawerNavigator(
+	{
+		Dashboard: {
+			screen: DashStack,
+			navigationOptions: {
+				drawerLabel: 'Dashboard'
+			}
+		},
+		UsersList: {
+			screen: UsersListStack,
+			navigationOptions: {
+				drawerLabel: 'Users List'
+			}
+		}
+	},
+	{
+		contentOptions: {
+			activeBackgroundColor: '#f5f5f5',
+			activeTintColor: Color.primaryColor
+		}
+	}
+);
+
 const MainNavigator = createStackNavigator(
 	{
 		Top: TopScreen,
@@ -122,7 +162,13 @@ const MainNavigator = createStackNavigator(
 		...NewsNavigator,
 		MessageDetails: MessageDetailsScreen,
 		Message: MessageTabsNavigator,
-		Profile: ProfileTabsNavigator
+		Profile: ProfileTabsNavigator,
+		Dashboard: {
+			screen: DashboardDrawerNavigator,
+			navigationOptions: {
+				headerShown: false
+			}
+		}
 	},
 	defaultStackNavitionOptions
 );

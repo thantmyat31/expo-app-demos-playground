@@ -5,7 +5,8 @@ const USER_DATA = [
 		email: 'hashirama@senju.clan',
 		password: 'encryptedpassword',
 		township: '',
-		address: ''
+		address: '',
+		roleId: 'rid2'
 	},
 	{
 		id: 'u2',
@@ -13,7 +14,8 @@ const USER_DATA = [
 		email: 'tobirama@senju.clan',
 		password: 'encryptedpassword',
 		township: '',
-		address: ''
+		address: '',
+		roleId: 'rid2'
 	},
 	{
 		id: 'u3',
@@ -21,15 +23,17 @@ const USER_DATA = [
 		email: 'madara@uchiha.clan',
 		password: 'encryptedpassword',
 		township: '',
-		address: ''
+		address: '',
+		roleId: 'rid2'
 	},
 	{
 		id: 'u4',
-		username: 'Master',
+		username: 'aaa',
 		email: 'admin@gmail.com',
-		password: 'master',
+		password: 'aaa',
 		township: '',
-		address: ''
+		address: '',
+		roleId: 'rid1'
 	}
 ];
 
