@@ -13,5 +13,6 @@ export default {
 	darkColor: '#3d3d3d',
 	redColor: '#FF5252',
 	loginBtnColor: '#1e6b6d',
-	profileBtnColor: '#6D6E6A'
+	profileBtnColor: '#6D6E6A',
+	primaryHeaderColor: '#1e6b6d'
 };

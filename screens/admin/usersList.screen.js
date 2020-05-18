@@ -2,10 +2,13 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import MenuIcon from '../../components/menuIcon.component';
 
-const UsersListScreen = () => {
+const UsersListScreen = ({ navigation }) => {
+	const userDataType = navigation.getParam('userData');
+	console.log(userDataType);
 	return (
 		<View style={styles.screen}>
-			<Text>Users Lists</Text>
+			<Text>Users List Screen</Text>
+			<Text>User Types {userDataType}</Text>
 		</View>
 	);
 };

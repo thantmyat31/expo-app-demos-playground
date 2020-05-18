@@ -142,8 +142,8 @@ const DashboardDrawerNavigator = createDrawerNavigator(
 	},
 	{
 		contentOptions: {
-			activeBackgroundColor: '#f5f5f5',
-			activeTintColor: Color.primaryColor
+			activeBackgroundColor: Color.primaryColor,
+			activeTintColor: '#fff'
 		}
 	}
 );
