@@ -1,14 +1,43 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import MenuIcon from '../../components/menuIcon.component';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, FlatList } from 'react-native';
+import { connect } from 'react-redux';
 
-const UsersListScreen = ({ navigation }) => {
-	const userDataType = navigation.getParam('userData');
-	console.log(userDataType);
+import MenuIcon from '../../components/menuIcon.component';
+import UserListItem from '../../components/userListItem.component';
+import ColorDefinition from '../../components/ColorDefinition.component';
+
+const UsersListScreen = (props) => {
+	const userData = props.navigation.getParam('userData');
+	const routeName = props.navigation.state.routeName;
+	const [ usersList, setUsersList ] = useState();
+
+	useEffect(() => {
+		if (!userData) {
+			setUsersList(props.users);
+		} else {
+			if (userData === 'all') {
+				setUsersList(props.users);
+			}
+			if (userData === 'online') {
+				setUsersList(props.users.filter((user) => user.status.network === 'online'));
+			}
+			if (userData === 'muted') {
+				setUsersList(props.users.filter((user) => user.status.type === 'muted'));
+			}
+		}
+	}, []);
+
 	return (
 		<View style={styles.screen}>
-			<Text>Users List Screen</Text>
-			<Text>User Types {userDataType}</Text>
+			<View style={styles.container}>
+				<ColorDefinition />
+				<FlatList
+					style={styles.flatList}
+					keyExtractor={(item, index) => item.id}
+					data={usersList}
+					renderItem={(itemData) => <UserListItem data={itemData.item} />}
+				/>
+			</View>
 		</View>
 	);
 };
@@ -23,7 +52,18 @@ UsersListScreen.navigationOptions = ({ navigation }) => {
 const styles = StyleSheet.create({
 	screen: {
 		flex: 1
+	},
+	container: {
+		flex: 1,
+		padding: 10
+	},
+	flatList: {
+		paddingTop: 10
 	}
 });
 
-export default UsersListScreen;
+const mapStateToProps = (state) => ({
+	users: state.user.users
+});
+
+export default connect(mapStateToProps)(UsersListScreen);

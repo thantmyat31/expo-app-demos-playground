@@ -5,10 +5,6 @@ import MenuIcon from '../../components/menuIcon.component';
 import DashboardIcon from '../../components/dashboardIcon.component';
 
 const DashboardScreen = ({ navigation }) => {
-	const handleOnNavigateUsers = (data) => {
-		navigation.navigate({ routeName: 'UsersList', params: { userData: data } });
-		console.log(data);
-	};
 	return (
 		<View style={styles.screen}>
 			<ScrollView style={styles.container}>
@@ -17,19 +13,19 @@ const DashboardScreen = ({ navigation }) => {
 						label="All Users"
 						iconName="md-people"
 						value="20k+"
-						onPress={() => handleOnNavigateUsers('all')}
+						onPress={() => navigation.navigate({ routeName: 'UsersList', params: { userData: 'all' } })}
 					/>
 					<DashboardIcon
 						label="Online Users"
 						iconName="md-wifi"
 						value="235"
-						onPress={() => handleOnNavigateUsers('online')}
+						onPress={() => navigation.navigate({ routeName: 'UsersList', params: { userData: 'online' } })}
 					/>
 					<DashboardIcon
 						label="Muted Users"
 						iconName="md-volume-off"
 						value="43"
-						onPress={() => handleOnNavigateUsers('muted')}
+						onPress={() => navigation.navigate({ routeName: 'UsersList', params: { userData: 'muted' } })}
 					/>
 					<DashboardIcon label="Inbox" iconName="md-mail" value="500" />
 					<DashboardIcon label="Replied" iconName="md-mail-open" value="100" />

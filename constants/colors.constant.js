@@ -14,5 +14,10 @@ export default {
 	redColor: '#FF5252',
 	loginBtnColor: '#1e6b6d',
 	profileBtnColor: '#6D6E6A',
-	primaryHeaderColor: '#1e6b6d'
+	primaryHeaderColor: '#1e6b6d',
+	mutedBgColor: '#ffdfe5',
+	mutedTxtColor: '#ff0000',
+	onlineBgColor: '#d9f6f7',
+	onlineTxtColor: '#7acbcd',
+	offlineBgColor: '#fff'
 };

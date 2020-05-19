@@ -113,14 +113,18 @@ const MessageTabsNavigator = createBottomTabNavigator(
 
 const DashStack = createStackNavigator(
 	{
-		Dashboard: DashboardScreen
+		Dashboard: DashboardScreen,
+		UsersList: UsersListScreen
 	},
-	defaultStackNavitionOptions
+	{
+		...defaultStackNavitionOptions,
+		initialRouteName: 'Dashboard'
+	}
 );
 
-const UsersListStack = createStackNavigator(
+const ManageUserStack = createStackNavigator(
 	{
-		UsersList: UsersListScreen
+		ManageUser: UsersListScreen
 	},
 	defaultStackNavitionOptions
 );
@@ -133,10 +137,10 @@ const DashboardDrawerNavigator = createDrawerNavigator(
 				drawerLabel: 'Dashboard'
 			}
 		},
-		UsersList: {
-			screen: UsersListStack,
+		ManageUser: {
+			screen: ManageUserStack,
 			navigationOptions: {
-				drawerLabel: 'Users List'
+				drawerLabel: 'Manage User'
 			}
 		}
 	},

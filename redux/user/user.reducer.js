@@ -1,17 +1,24 @@
 import userTypes from './user.type';
 import USER_DATA from './../../data/user.data';
+import USERS_ROLES from './../../data/usersRoles.data';
 
 const INITIAL_STATE = {
 	users: USER_DATA,
+	usersRole: USERS_ROLES,
 	currentUser: undefined
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case userTypes.USER_LOGGEDIN:
+			const updatedUsers = USER_DATA.map(
+				(user) =>
+					user.id === action.payload.id ? { ...user, status: { ...user.status, network: 'online' } } : user
+			);
 			return {
 				...state,
-				currentUser: action.payload
+				currentUser: action.payload,
+				users: updatedUsers
 			};
 
 		case userTypes.USER_LOGGEDOUT:
