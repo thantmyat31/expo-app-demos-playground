@@ -41,7 +41,7 @@ const USER_DATA = [
 	{
 		id: 'u4',
 		username: 'aaa',
-		email: 'admin@email.com',
+		email: 'aaa',
 		password: 'aaa',
 		township: '',
 		address: '',

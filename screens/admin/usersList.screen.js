@@ -35,7 +35,7 @@ const UsersListScreen = (props) => {
 					style={styles.flatList}
 					keyExtractor={(item, index) => item.id}
 					data={usersList}
-					renderItem={(itemData) => <UserListItem data={itemData.item} />}
+					renderItem={(itemData) => <UserListItem navigation={props.navigation} data={itemData.item} />}
 				/>
 			</View>
 		</View>

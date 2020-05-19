@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
 import Color from './../constants/colors.constant';
 import { connect } from 'react-redux';
 import UserListItemDetail from './userListItemDetail.component';
 
-const UserListItem = ({ data, usersRole }) => {
+const UserListItem = ({ data, usersRole, navigation }) => {
 	const [ showCase, setShowCase ] = useState(false);
-	const { username, email, township, address, roleId, status } = data;
+	const { id, username, email, township, address, roleId, status } = data;
 	const userRole = usersRole.find((r) => r.id === roleId);
 
 	const handleOnShowCase = () => {
@@ -22,7 +22,7 @@ const UserListItem = ({ data, usersRole }) => {
 				<UserListItemDetail label="Role" value={userRole.role} />
 				<UserListItemDetail
 					nstyle={
-						data.status.network === 'online' ? (
+						status.network === 'online' ? (
 							{ ...styles.listText, ...styles.onlineTxt }
 						) : (
 							{ ...styles.listText }
@@ -33,7 +33,7 @@ const UserListItem = ({ data, usersRole }) => {
 				/>
 				<UserListItemDetail
 					nstyle={
-						data.status.type !== 'normal' && data.status.type === 'muted' ? (
+						status.type !== 'normal' && status.type === 'muted' ? (
 							{ ...styles.listText, ...styles.mutedTxt }
 						) : (
 							{ ...styles.listText }
@@ -42,6 +42,21 @@ const UserListItem = ({ data, usersRole }) => {
 					label="Status"
 					value={status.type}
 				/>
+				{userRole.role !== 'adminSuperMaster' ? (
+					<View style={styles.viewBtnContainer}>
+						<TouchableOpacity
+							activeOpacity={0.6}
+							style={styles.viewBtn}
+							onPress={() =>
+								navigation.navigate({
+									routeName: 'ViewAndManage',
+									params: { user: data }
+								})}
+						>
+							<Text style={styles.viewBtnTxt}>View and Manage</Text>
+						</TouchableOpacity>
+					</View>
+				) : null}
 			</View>
 		);
 	};
@@ -60,13 +75,19 @@ const UserListItem = ({ data, usersRole }) => {
 		>
 			<View style={styles.item}>
 				<Text style={styles.username}>{username}</Text>
-				<View style={{ width: 60 }}>
-					<Button
-						title={!showCase ? 'show' : 'hide'}
-						color={!showCase ? Color.primaryColor : Color.redColor}
-						onPress={handleOnShowCase}
-					/>
-				</View>
+				<TouchableOpacity
+					activeOpacity={0.6}
+					style={
+						!showCase ? (
+							styles.showDetailsBtn
+						) : (
+							{ ...styles.showDetailsBtn, backgroundColor: Color.redColor }
+						)
+					}
+					onPress={handleOnShowCase}
+				>
+					<Text style={styles.btnTxt}>{!showCase ? 'show' : 'hide'}</Text>
+				</TouchableOpacity>
 			</View>
 			{showCase ? <DetailsCard /> : null}
 		</View>
@@ -90,6 +111,35 @@ const styles = StyleSheet.create({
 	username: {
 		fontSize: 16,
 		color: '#555'
+	},
+	showDetailsBtn: {
+		width: 80,
+		backgroundColor: Color.primaryColor,
+		paddingHorizontal: 10,
+		paddingVertical: 8,
+		elevation: 2,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 20
+	},
+	btnTxt: {
+		color: '#fff',
+		textTransform: 'uppercase'
+	},
+	viewBtnContainer: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginTop: 20
+	},
+	viewBtn: {
+		backgroundColor: Color.primaryColor,
+		paddingHorizontal: 15,
+		paddingVertical: 8,
+		borderRadius: 20
+	},
+	viewBtnTxt: {
+		color: '#fff',
+		textTransform: 'uppercase'
 	},
 	list: {
 		flexDirection: 'row',

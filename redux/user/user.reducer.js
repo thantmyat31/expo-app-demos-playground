@@ -49,12 +49,16 @@ const userReducer = (state = INITIAL_STATE, action) => {
 			} else {
 				newFavoritePosts = [ action.payload ];
 			}
+			const renewUsersList = state.users.map(
+				(u) => (u.id === state.currentUser.id ? { ...u, favoritePosts: newFavoritePosts } : u)
+			);
 			return {
 				...state,
 				currentUser: {
 					...state.currentUser,
 					favoritePosts: newFavoritePosts
-				}
+				},
+				users: renewUsersList
 			};
 
 		default:

@@ -31,6 +31,7 @@ import UserFavoritePostScreen from './../screens/user/user.favorite.posts.screen
 import { Ionicons } from '@expo/vector-icons';
 import DashboardScreen from './../screens/admin/dashboard.screen';
 import UsersListScreen from './../screens/admin/usersList.screen';
+import ViewAndManageUserScreen from './../screens/admin/manageUser.screen';
 
 const defaultStackNavitionOptions = {
 	mode: 'card',
@@ -114,7 +115,8 @@ const MessageTabsNavigator = createBottomTabNavigator(
 const DashStack = createStackNavigator(
 	{
 		Dashboard: DashboardScreen,
-		UsersList: UsersListScreen
+		UsersList: UsersListScreen,
+		ViewAndManage: ViewAndManageUserScreen
 	},
 	{
 		...defaultStackNavitionOptions,
@@ -141,6 +143,12 @@ const DashboardDrawerNavigator = createDrawerNavigator(
 			screen: ManageUserStack,
 			navigationOptions: {
 				drawerLabel: 'Manage User'
+			}
+		},
+		Top: {
+			screen: TopScreen,
+			navigationOptions: {
+				drawerLabel: 'Home'
 			}
 		}
 	},

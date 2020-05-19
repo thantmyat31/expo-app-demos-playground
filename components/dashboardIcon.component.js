@@ -15,11 +15,13 @@ const DashboardIcon = ({ label, iconName, value, onPress }) => {
 
 const styles = StyleSheet.create({
 	info: {
-		width: '50%',
+		width: '47%',
 		alignItems: 'center',
 		flexDirection: 'column',
 		paddingHorizontal: 10,
-		paddingVertical: 20
+		paddingVertical: 20,
+		backgroundColor: '#ddd',
+		marginBottom: 10
 	},
 	title: {
 		fontSize: 18,
