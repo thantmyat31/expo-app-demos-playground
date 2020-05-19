@@ -66,54 +66,54 @@ const USER_DATA = [
 	},
 	{
 		id: 'u6',
-		username: 'user',
-		email: 'user@email.com',
-		password: 'user',
+		username: 'phyupyar',
+		email: 'phyupyar@email.com',
+		password: 'phyupyar',
 		township: '',
 		address: '',
 		roleId: 'rid2',
 		status: {
-			network: 'online',
-			type: 'muted'
+			network: 'offline',
+			type: 'normal'
 		}
 	},
 	{
 		id: 'u7',
-		username: 'user',
-		email: 'user@email.com',
-		password: 'user',
+		username: 'muyar',
+		email: 'muyar@email.com',
+		password: 'muyar',
 		township: '',
 		address: '',
 		roleId: 'rid2',
 		status: {
 			network: 'online',
-			type: 'muted'
+			type: 'normal'
 		}
 	},
 	{
 		id: 'u8',
-		username: 'user',
-		email: 'user@email.com',
-		password: 'user',
+		username: 'yupar',
+		email: 'yupar@email.com',
+		password: 'yupar',
 		township: '',
 		address: '',
 		roleId: 'rid2',
 		status: {
-			network: 'online',
-			type: 'muted'
+			network: 'offline',
+			type: 'normal'
 		}
 	},
 	{
 		id: 'u9',
-		username: 'user',
-		email: 'user@email.com',
-		password: 'user',
+		username: 'tunar',
+		email: 'tunar@email.com',
+		password: 'tunar',
 		township: '',
 		address: '',
 		roleId: 'rid2',
 		status: {
 			network: 'online',
-			type: 'muted'
+			type: 'noraml'
 		}
 	},
 	{

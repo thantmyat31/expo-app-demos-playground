@@ -9,18 +9,18 @@ import { connect } from 'react-redux';
 import { userLoginAction } from './../../redux/user/user.action';
 
 const LoginScreen = ({ navigation, users, userLoginAction }) => {
-	const [ username, setUserName ] = useState();
+	const [ email, setEmail ] = useState();
 	const [ password, setPassword ] = useState();
 	const handleOnLogin = () => {
-		const selectedUser = users.find((user) => user.username === username && user.password === password);
+		const selectedUser = users.find((user) => user.email === email && user.password === password);
 
-		if (username && password && selectedUser) {
+		if (email && password && selectedUser) {
 			userLoginAction(selectedUser);
 			navigation.navigate('Top');
 			return;
 		}
-		Alert.alert('Login Failed!', 'Please, enter valid username and password', [ { text: 'OK', style: 'default' } ]);
-		setUserName('');
+		Alert.alert('Login Failed!', 'Please, enter valid email and password', [ { text: 'OK', style: 'default' } ]);
+		setEmail('');
 		setPassword('');
 	};
 
@@ -30,10 +30,10 @@ const LoginScreen = ({ navigation, users, userLoginAction }) => {
 				<View style={styles.loginRegisterWrapper}>
 					<LogoComponent marginVertical={50} />
 					<InputComponent
-						icon="ios-person"
-						placeholder="Username"
-						value={username}
-						onChange={(text) => setUserName(text)}
+						icon="ios-mail"
+						placeholder="Email"
+						value={email}
+						onChange={(text) => setEmail(text)}
 					/>
 					<InputComponent
 						icon="ios-briefcase"
