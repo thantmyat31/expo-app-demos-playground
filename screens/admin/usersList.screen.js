@@ -7,10 +7,12 @@ import { connect } from 'react-redux';
 import MenuIcon from '../../components/menuIcon.component';
 import UserListItem from '../../components/userListItem.component';
 import ColorDefinition from '../../components/ColorDefinition.component';
+import SearchBox from '../../components/searchbox.component';
 
 const UsersListScreen = (props) => {
 	const userData = props.navigation.getParam('userData');
 	const [ usersList, setUsersList ] = useState();
+	const [ onSearch, setOnSearch ] = useState(false);
 
 	const getUsers = () => {
 		if (!userData) {
@@ -25,6 +27,9 @@ const UsersListScreen = (props) => {
 			if (userData === 'muted') {
 				setUsersList(props.users.filter((user) => user.status.type === 'muted'));
 			}
+			if (userData === 'search') {
+				setOnSearch(true);
+			}
 		}
 	};
 
@@ -36,11 +41,26 @@ const UsersListScreen = (props) => {
 		getUsers();
 	};
 
+	const handleOnSearch = (text) => {
+		let userSearched = [];
+
+		if (text.trim() !== '') {
+			userSearched = props.users.filter(
+				(user) => user.username.startsWith(text.trim()) || user.email.startsWith(text.trim())
+			);
+			setUsersList(userSearched);
+		} else {
+			userSearched = [];
+			setUsersList(userSearched);
+		}
+	};
+
 	return (
 		<View style={styles.screen}>
 			<View style={styles.container}>
 				<NavigationEvents onDidFocus={handleOnPageFocus} />
 				<ColorDefinition />
+				{onSearch && <SearchBox onChangeText={(text) => handleOnSearch(text)} />}
 				<FlatList
 					style={styles.flatList}
 					keyExtractor={(item, index) => item.id}
@@ -55,7 +75,7 @@ const UsersListScreen = (props) => {
 UsersListScreen.navigationOptions = ({ navigation }) => {
 	return {
 		headerTitle: 'Users List',
-		headerLeft: () => <MenuIcon onPress={() => navigation.toggleDrawer()} />
+		headerLeft: () => <MenuIcon iconName="md-menu" onPress={() => navigation.toggleDrawer()} />
 	};
 };
 

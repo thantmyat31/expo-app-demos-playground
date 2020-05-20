@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const MenuIcon = ({ onPress }) => {
+const MenuIcon = ({ iconName, onPress }) => {
 	return (
-		<TouchableOpacity style={styles.icon}>
-			<Ionicons name="md-menu" color="#fff" size={35} onPress={onPress} />
+		<TouchableOpacity activeOpacity={0.6} style={styles.icon} onPress={onPress}>
+			<Ionicons name={iconName} color="#fff" size={35} />
 		</TouchableOpacity>
 	);
 };
@@ -13,8 +13,9 @@ const MenuIcon = ({ onPress }) => {
 const styles = StyleSheet.create({
 	icon: {
 		width: 35,
-		height: 35,
+		height: 40,
 		marginLeft: 10,
+		marginRight: 10,
 		justifyContent: 'center',
 		alignItems: 'center'
 	}

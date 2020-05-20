@@ -26,10 +26,10 @@ const ViewAndManageUserScreen = ({ navigation, userStatusToggleAction, deleteUse
 				onPress: () => {
 					deleteUserAction(user.id);
 					navigation.navigate('UsersList');
+					return;
 				}
 			}
 		]);
-		return;
 	};
 	return (
 		<View style={styles.screen}>
@@ -80,6 +80,12 @@ const ViewAndManageUserScreen = ({ navigation, userStatusToggleAction, deleteUse
 			</ScrollView>
 		</View>
 	);
+};
+
+ViewAndManageUserScreen.navigationOptions = () => {
+	return {
+		headerTitle: 'Manage User'
+	};
 };
 
 const styles = StyleSheet.create({

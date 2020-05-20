@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, ScrollView, Modal, Button } from 'react-native';
 import MenuIcon from '../../components/menuIcon.component';
 
 import DashboardIcon from '../../components/dashboardIcon.component';
@@ -9,6 +9,7 @@ const DashboardScreen = ({ navigation, users }) => {
 	const usersAll = users.length;
 	const usersOnline = users.filter((u) => u.status.network.toLowerCase() === 'online').length;
 	const usersMuted = users.filter((u) => u.status.type.toLowerCase() === 'muted').length;
+
 	return (
 		<View style={styles.screen}>
 			<ScrollView style={styles.container}>
@@ -41,9 +42,13 @@ const DashboardScreen = ({ navigation, users }) => {
 };
 
 DashboardScreen.navigationOptions = ({ navigation }) => {
+	const handleOnSearch = () => {
+		navigation.navigate({ routeName: 'UsersList', params: { userData: 'search' } });
+	};
 	return {
 		headerTitle: 'Dashboard',
-		headerLeft: () => <MenuIcon onPress={() => navigation.toggleDrawer()} />
+		headerLeft: () => <MenuIcon iconName="md-menu" onPress={() => navigation.toggleDrawer()} />,
+		headerRight: () => <MenuIcon iconName="md-search" onPress={handleOnSearch} />
 	};
 };
 
@@ -59,6 +64,16 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		justifyContent: 'space-around'
+	},
+	modalBox: {
+		backgroundColor: 'rgba(0,0,0,0.6)',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	modalCard: {
+		width: '80%',
+		padding: 20,
+		backgroundColor: '#fff'
 	}
 });
 
