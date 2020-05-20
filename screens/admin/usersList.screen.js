@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, FlatList, Alert } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 
 import { connect } from 'react-redux';
@@ -13,6 +13,7 @@ const UsersListScreen = (props) => {
 	const userData = props.navigation.getParam('userData');
 	const [ usersList, setUsersList ] = useState();
 	const [ onSearch, setOnSearch ] = useState(false);
+	const [ searchItem, setSearchItem ] = useState();
 
 	const getUsers = () => {
 		if (!userData) {
@@ -38,16 +39,20 @@ const UsersListScreen = (props) => {
 	}, []);
 
 	const handleOnPageFocus = () => {
+		if (userData === 'search') {
+			handleOnSearch(searchItem);
+		}
 		getUsers();
 	};
 
-	const handleOnSearch = (text) => {
+	const handleOnSearch = (text = '') => {
 		let userSearched = [];
 
 		if (text.trim() !== '') {
 			userSearched = props.users.filter(
 				(user) => user.username.startsWith(text.trim()) || user.email.startsWith(text.trim())
 			);
+			setSearchItem(text.trim());
 			setUsersList(userSearched);
 		} else {
 			userSearched = [];
