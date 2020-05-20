@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Alert } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
+
 import { connect } from 'react-redux';
 
 import MenuIcon from '../../components/menuIcon.component';
@@ -8,10 +10,9 @@ import ColorDefinition from '../../components/ColorDefinition.component';
 
 const UsersListScreen = (props) => {
 	const userData = props.navigation.getParam('userData');
-	const routeName = props.navigation.state.routeName;
 	const [ usersList, setUsersList ] = useState();
 
-	useEffect(() => {
+	const getUsers = () => {
 		if (!userData) {
 			setUsersList(props.users);
 		} else {
@@ -25,11 +26,20 @@ const UsersListScreen = (props) => {
 				setUsersList(props.users.filter((user) => user.status.type === 'muted'));
 			}
 		}
+	};
+
+	useEffect(() => {
+		getUsers();
 	}, []);
+
+	const handleOnPageFocus = () => {
+		getUsers();
+	};
 
 	return (
 		<View style={styles.screen}>
 			<View style={styles.container}>
+				<NavigationEvents onDidFocus={handleOnPageFocus} />
 				<ColorDefinition />
 				<FlatList
 					style={styles.flatList}

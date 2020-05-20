@@ -118,9 +118,9 @@ const USER_DATA = [
 	},
 	{
 		id: 'u10',
-		username: 'user',
-		email: 'user@email.com',
-		password: 'user',
+		username: 'buswar',
+		email: 'buswar@email.com',
+		password: 'buswar',
 		township: '',
 		address: '',
 		roleId: 'rid2',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Color from './../constants/colors.constant';
 import { connect } from 'react-redux';
 import UserListItemDetail from './userListItemDetail.component';
@@ -33,7 +33,7 @@ const UserListItem = ({ data, usersRole, navigation }) => {
 				/>
 				<UserListItemDetail
 					nstyle={
-						status.type !== 'normal' && status.type === 'muted' ? (
+						status.type.toLowerCase() !== 'normal' && status.type.toLowerCase() === 'muted' ? (
 							{ ...styles.listText, ...styles.mutedTxt }
 						) : (
 							{ ...styles.listText }
@@ -50,7 +50,7 @@ const UserListItem = ({ data, usersRole, navigation }) => {
 							onPress={() =>
 								navigation.navigate({
 									routeName: 'ViewAndManage',
-									params: { user: data }
+									params: { uid: id }
 								})}
 						>
 							<Text style={styles.viewBtnTxt}>View and Manage</Text>
@@ -64,7 +64,7 @@ const UserListItem = ({ data, usersRole, navigation }) => {
 	return (
 		<View
 			style={
-				status.type === 'muted' ? (
+				status.type.toLowerCase() === 'muted' ? (
 					{ ...styles.listItem, ...styles.muted }
 				) : status.network === 'online' ? (
 					{ ...styles.listItem, ...styles.online }

@@ -18,3 +18,14 @@ export const addFavoritePostAction = (post) => ({
 	type: userTypes.ADD_FAVORITE_POST,
 	payload: post
 });
+
+export const userStatusToggleAction = (uid, status) => ({
+	type: userTypes.USER_STATUS_TOGGLE,
+	uid: uid,
+	status: status
+});
+
+export const deleteUserAction = (uid) => ({
+	type: userTypes.DELETE_USER,
+	payload: uid
+});

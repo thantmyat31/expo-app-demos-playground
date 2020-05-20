@@ -61,6 +61,31 @@ const userReducer = (state = INITIAL_STATE, action) => {
 				users: renewUsersList
 			};
 
+		case userTypes.USER_STATUS_TOGGLE:
+			const userStatusUpdated = state.users.map(
+				(u) =>
+					u.id === action.uid
+						? {
+								...u,
+								status: {
+									...u.status,
+									type: action.status
+								}
+							}
+						: u
+			);
+			return {
+				...state,
+				users: userStatusUpdated
+			};
+
+		case userTypes.DELETE_USER:
+			const usersListAfterDeleted = state.users.filter((u) => u.id !== action.payload);
+			return {
+				...state,
+				users: usersListAfterDeleted
+			};
+
 		default:
 			return state;
 	}

@@ -3,8 +3,12 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import MenuIcon from '../../components/menuIcon.component';
 
 import DashboardIcon from '../../components/dashboardIcon.component';
+import { connect } from 'react-redux';
 
-const DashboardScreen = ({ navigation }) => {
+const DashboardScreen = ({ navigation, users }) => {
+	const usersAll = users.length;
+	const usersOnline = users.filter((u) => u.status.network.toLowerCase() === 'online').length;
+	const usersMuted = users.filter((u) => u.status.type.toLowerCase() === 'muted').length;
 	return (
 		<View style={styles.screen}>
 			<ScrollView style={styles.container}>
@@ -12,19 +16,19 @@ const DashboardScreen = ({ navigation }) => {
 					<DashboardIcon
 						label="All Users"
 						iconName="md-people"
-						value="20k+"
+						value={usersAll}
 						onPress={() => navigation.navigate({ routeName: 'UsersList', params: { userData: 'all' } })}
 					/>
 					<DashboardIcon
 						label="Online Users"
 						iconName="md-wifi"
-						value="235"
+						value={usersOnline}
 						onPress={() => navigation.navigate({ routeName: 'UsersList', params: { userData: 'online' } })}
 					/>
 					<DashboardIcon
 						label="Muted Users"
 						iconName="md-volume-off"
-						value="43"
+						value={usersMuted}
 						onPress={() => navigation.navigate({ routeName: 'UsersList', params: { userData: 'muted' } })}
 					/>
 					<DashboardIcon label="Inbox" iconName="md-mail" value="500" />
@@ -58,4 +62,8 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default DashboardScreen;
+const mapStateToProps = (state) => ({
+	users: state.user.users
+});
+
+export default connect(mapStateToProps)(DashboardScreen);
