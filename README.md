@@ -1,11 +1,11 @@
 ## Test Accounts ##
 
 ### Admin Account ###
-Username - admin
-Email - admin@email.com
+Username - admin <br />
+Email - admin@email.com <br />
 Password - admin
 
 ### User Account ###
-Username - user
-Email - user@email.com
+Username - user <br />
+Email - user@email.com <br />
 Password - user
