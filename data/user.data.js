@@ -40,9 +40,9 @@ const USER_DATA = [
 	},
 	{
 		id: 'u4',
-		username: 'aaa',
-		email: 'aaa',
-		password: 'aaa',
+		username: 'admin',
+		email: 'admin@email.com',
+		password: 'admin',
 		township: '',
 		address: '',
 		roleId: 'rid1',
